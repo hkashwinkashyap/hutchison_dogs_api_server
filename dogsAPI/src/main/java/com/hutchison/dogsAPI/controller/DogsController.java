@@ -1,6 +1,7 @@
 package com.hutchison.dogsAPI.controller;
 
 import com.hutchison.dogsAPI.exceptions.DogException;
+import com.hutchison.dogsAPI.repo.DogsData;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 import com.hutchison.dogsAPI.service.DogsService;
@@ -25,7 +26,7 @@ public class DogsController {
     public ResponseResult<Map<String, ArrayList<String>>> getAllDogs() {
         return ResponseResult.<Map<String, ArrayList<String>>>builder().
                 code(200)
-                .message(null)
+                .message("success")
                 .data(dogsService.getAllDogs())
                 .build();
     }
