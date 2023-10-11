@@ -1,4 +1,4 @@
-package utils;
+package com.hutchison.dogsAPI.utils;
 
 import lombok.AllArgsConstructor;
 import lombok.Builder;

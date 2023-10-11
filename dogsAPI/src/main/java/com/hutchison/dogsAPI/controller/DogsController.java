@@ -1,21 +1,25 @@
-package controller;
+package com.hutchison.dogsAPI.controller;
 
-import exceptions.DogException;
+import com.hutchison.dogsAPI.exceptions.DogException;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
-import service.DogsService;
-import utils.ResponseResult;
+import com.hutchison.dogsAPI.service.DogsService;
+import com.hutchison.dogsAPI.utils.ResponseResult;
 
 import java.util.ArrayList;
 import java.util.Map;
 
-@Controller
+@RestController
 @CrossOrigin
+@RequestMapping("/dogsApi")
 public class DogsController {
 
+    private final DogsService dogsService;
+
     @Autowired
-    private DogsService dogsService;
+    public DogsController(DogsService dogsService) {
+        this.dogsService = dogsService;
+    }
 
     @GetMapping(value = "/getAllDogs")
     public ResponseResult<Map<String, ArrayList<String>>> getAllDogs() {

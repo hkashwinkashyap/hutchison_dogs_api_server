@@ -1,14 +1,21 @@
-package service;
+package com.hutchison.dogsAPI.service;
 
-import exceptions.DogException;
+import com.hutchison.dogsAPI.exceptions.DogException;
+import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.Map;
 
+@Service
 public class DogsServiceImpl implements DogsService{
     @Override
     public Map<String, ArrayList<String>> getAllDogs() {
-        return null;
+        Map<String, ArrayList<String>> result = new HashMap<>();
+        ArrayList<String> arrayList = new ArrayList<>();
+        arrayList.add("First");
+        result.put("Test",arrayList);
+        return result;
     }
 
     @Override

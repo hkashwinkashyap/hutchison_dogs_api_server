@@ -1,6 +1,6 @@
-package service;
+package com.hutchison.dogsAPI.service;
 
-import exceptions.DogException;
+import com.hutchison.dogsAPI.exceptions.DogException;
 import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
