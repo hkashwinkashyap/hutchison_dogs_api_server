@@ -1,11 +1,10 @@
 package com.hutchison.dogsAPI.controller;
 
 import com.hutchison.dogsAPI.exceptions.DogException;
-import com.hutchison.dogsAPI.repo.DogsData;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.*;
 import com.hutchison.dogsAPI.service.DogsService;
 import com.hutchison.dogsAPI.utils.ResponseResult;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.ArrayList;
 import java.util.Map;
@@ -32,7 +31,7 @@ public class DogsController {
     }
 
     @PostMapping(value = "/addDogBreed")
-    public ResponseResult<Void> addDogBreed(Map<String, String> requestBody){
+    public ResponseResult<Void> addDogBreed(@RequestBody Map<String, String> requestBody) {
         try {
             return ResponseResult.<Void>builder().
                     code(200)
@@ -41,9 +40,7 @@ public class DogsController {
                     ))
                     .data(null)
                     .build();
-        }
-
-        catch (DogException e){
+        } catch (DogException e) {
             return ResponseResult.<Void>builder()
                     .code(400)
                     .message(e.getMessage())
@@ -53,7 +50,7 @@ public class DogsController {
     }
 
     @PostMapping(value = "/deleteDogBreed")
-    public ResponseResult<Void> deleteDogBreed(Map<String, String> requestBody){
+    public ResponseResult<Void> deleteDogBreed(@RequestBody Map<String, String> requestBody) {
         try {
             return ResponseResult.<Void>builder().
                     code(200)
@@ -62,9 +59,7 @@ public class DogsController {
                     ))
                     .data(null)
                     .build();
-        }
-
-        catch (DogException e){
+        } catch (DogException e) {
             return ResponseResult.<Void>builder()
                     .code(400)
                     .message(e.getMessage())
@@ -74,7 +69,7 @@ public class DogsController {
     }
 
     @PostMapping(value = "/addDogBreedType")
-    public ResponseResult<Void> addDogBreedType(Map<String, String> requestBody){
+    public ResponseResult<Void> addDogBreedType(@RequestBody Map<String, String> requestBody) {
         try {
             return ResponseResult.<Void>builder().
                     code(200)
@@ -84,9 +79,7 @@ public class DogsController {
                     ))
                     .data(null)
                     .build();
-        }
-
-        catch (DogException e){
+        } catch (DogException e) {
             return ResponseResult.<Void>builder()
                     .code(400)
                     .message(e.getMessage())
@@ -96,7 +89,7 @@ public class DogsController {
     }
 
     @PostMapping(value = "/deleteDogBreedType")
-    public ResponseResult<Void> deleteDogBreedType(Map<String, String> requestBody){
+    public ResponseResult<Void> deleteDogBreedType(@RequestBody Map<String, String> requestBody) {
         try {
             return ResponseResult.<Void>builder().
                     code(200)
@@ -106,9 +99,7 @@ public class DogsController {
                     ))
                     .data(null)
                     .build();
-        }
-
-        catch (DogException e){
+        } catch (DogException e) {
             return ResponseResult.<Void>builder()
                     .code(400)
                     .message(e.getMessage())

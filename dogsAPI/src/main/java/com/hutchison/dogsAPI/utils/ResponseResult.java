@@ -23,26 +23,26 @@ public class ResponseResult<T> implements Serializable {
 
     private T data;
 
-    public ResponseResult(Integer code){
+    public ResponseResult(Integer code) {
         this.code = code;
     }
 
-    public ResponseResult(Integer code, String message){
+    public ResponseResult(Integer code, String message) {
         this.code = code;
         this.message = message;
     }
 
-    public ResponseResult(Integer code, T data){
+    public ResponseResult(Integer code, T data) {
         this.code = code;
         this.data = data;
     }
 
-    public T getData(){
+    public T getData() {
         return data;
     }
 
     @Override
-    public int hashCode(){
+    public int hashCode() {
         final int prime = 31;
         int result = 1;
         result = prime * result + ((data == null) ? 0 : data.hashCode());

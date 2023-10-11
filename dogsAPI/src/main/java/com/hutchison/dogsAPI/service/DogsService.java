@@ -13,9 +13,9 @@ public interface DogsService {
 
     public String addDogBreed(String breedName) throws DogException;
 
-    public String addDogBreedType(String breedName, String breedTypeName) throws DogException;
-
     public String deleteDogBreed(String breedName) throws DogException;
 
-    public String deleteDogBreedType(String breedName, String breedTypeName) throws DogException;
+    public String addDogBreedType(String breedName, String breedTypeNames) throws DogException;
+
+    public String deleteDogBreedType(String breedName, String breedTypeNames) throws DogException;
 }
