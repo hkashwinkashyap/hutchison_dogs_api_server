@@ -38,13 +38,11 @@ public class DogsController {
                     .message(dogsService.addDogBreed(
                             requestBody.get("breedName")
                     ))
-                    .data(null)
                     .build();
         } catch (DogException e) {
             return ResponseResult.<Void>builder()
                     .code(400)
                     .message(e.getMessage())
-                    .data(null)
                     .build();
         }
     }
@@ -57,13 +55,11 @@ public class DogsController {
                     .message(dogsService.deleteDogBreed(
                             requestBody.get("breedName")
                     ))
-                    .data(null)
                     .build();
         } catch (DogException e) {
             return ResponseResult.<Void>builder()
                     .code(400)
                     .message(e.getMessage())
-                    .data(null)
                     .build();
         }
     }
@@ -77,13 +73,11 @@ public class DogsController {
                             requestBody.get("breedName"),
                             requestBody.get("breedTypeName")
                     ))
-                    .data(null)
                     .build();
         } catch (DogException e) {
             return ResponseResult.<Void>builder()
                     .code(400)
                     .message(e.getMessage())
-                    .data(null)
                     .build();
         }
     }
@@ -97,13 +91,11 @@ public class DogsController {
                             requestBody.get("breedName"),
                             requestBody.get("breedTypeName")
                     ))
-                    .data(null)
                     .build();
         } catch (DogException e) {
             return ResponseResult.<Void>builder()
                     .code(400)
                     .message(e.getMessage())
-                    .data(null)
                     .build();
         }
     }
