@@ -22,40 +22,41 @@
         <div class="container text-center">
             <div class="row">
                 <div class="col crud-view-container text-bg-dark">
-                    <h6 class="navbar-brand rounded-pill text-bg-dark">Add or Remove Dog Breed</h6>
+                    <h6 class="navbar-brand rounded-pill text-bg-dark">Add</h6>
                     <div class="container button-container-btns">
-                        <input type="text" id="dog-breed-add" placeholder="Dog Breed">
-                        <button type="button" class="btn btn-outline-light btn-sm" onclick="addDogBreed()">Add
-                            Breed</button>
-                    </div>
-                    <div class="container button-container-btns">
-                        <input type="text" id="dog-breed-remove" placeholder="Dog Breed">
-                        <button type="button" class="btn btn-outline-danger btn-sm" onclick="removeDogBreed()">Remove
-                            Breed</button>
+                        <input type="text" id="dog-breed-add" placeholder="Dog Breed" style="margin-bottom: 10px;">
+                        <input type="text" id="dog-breedType-add" placeholder="Breed Type" style="margin-bottom: 10px;">
+                        <br>
+                        <button type="button" class="btn btn-outline-info btn-sm" onclick="addHandle()">Add</button>
                     </div>
                 </div>
                 <div class="col crud-view-container text-bg-dark">
-                    <h6 class="navbar-brand rounded-pill text-bg-dark">Add or Remove Dog Breed Type</h6>
+                    <h6 class="navbar-brand rounded-pill text-bg-dark">Remove</h6>
                     <div class="container button-container-btns">
-                        <input type="text" id="dog-breed-add-type" placeholder="Dog Breed">
-                        <input type="text" id="dog-breedType-add" placeholder="Breed Type">
-                        <button type="button" class="btn btn-outline-light btn-sm" onclick="addDogBreedType()">Add Breed
-                            Type</button>
+                        <input type="text" id="dog-breed-remove" placeholder="Dog Breed" style="margin-bottom: 10px;">
+                        <input type="text" id="dog-breedType-remove" placeholder="Breed Type" style="margin-bottom: 10px;">
+                        <br>
+                        <button type="button" class="btn btn-outline-danger btn-sm" onclick="removeHandle()">Remove</button>
                     </div>
+                </div>
+                <div class="col crud-view-container text-bg-dark">
+                    <h6 class="navbar-brand rounded-pill text-bg-dark">Update</h6>
                     <div class="container button-container-btns">
-                        <input type="text" id="dog-breed-remove-type" placeholder="Dog Breed">
-                        <input type="text" id="dog-breedType-remove" placeholder="Breed Type">
-                        <button type="button" class="btn btn-outline-danger btn-sm"
-                            onclick="removeDogBreedType()">Remove Breed
-                            Type</button>
+                        <input type="text" id="dog-breed-update" placeholder="Dog Breed" style="margin-bottom: 10px;">
+                        <input type="text" id="dog-breed-update-new" placeholder="New Dog Breed Name" style="margin-bottom: 10px;">
+
+                        <input type="text" id="dog-breedType-update" placeholder="Breed Type" style="margin-bottom: 10px;">
+                        <input type="text" id="dog-breedType-update-new" placeholder="New Breed Type Name" style="margin-bottom: 10px;">
+                        <br>
+                        <button type="button" class="btn btn-outline-light btn-sm" onclick="updateHandle()">Update</button>
                     </div>
                 </div>
             </div>
         </div>
-        <div class="container crud-view-container rounded-pill text-bg-dark">
-            <h5>Following list has each Dog Breed in each card</h5>
-            <h6>Types of that Breed in a list.</h6>
-        </div>
+    </div>
+    <div class="container crud-view-container rounded-pill text-bg-dark">
+        <h5>Following list has each Dog Breed in each card</h5>
+        <h6>Types of that Breed in the list of the card</h6>
     </div>
     <div class="container crud-view-container">
         <div id="dog-list" class="container" data-bs-theme="dark"></div>

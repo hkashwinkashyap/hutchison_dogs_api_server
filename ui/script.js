@@ -10,7 +10,6 @@ function postRequestJson(requestData) {
     };
 }
 
-
 function capitalizeFirstLetter(string) {
     return string.charAt(0).toUpperCase() + string.slice(1);
 }
@@ -27,12 +26,26 @@ function setColCount() {
     }
 }
 
-function addDogBreed() {
-    const addBreedName = document.getElementById('dog-breed-add').value.trim().toLowerCase();
+function addHandle() {
+    const addBreedName = document.getElementById('dog-breed-add').value.trim().toLowerCase().replace(/\s+/g, " ");
+    const addBreedTypeName = document.getElementById('dog-breedType-add').value.trim().toLowerCase().replace(/\s+/g, " ");
+
     if (addBreedName === '') {
-        alert('Please enter a breed name');
+        alert('Please enter a Breed name');
         return;
     }
+
+    if (addBreedName !== '' && addBreedTypeName === '') {
+        addDogBreed(addBreedName);
+    }
+
+    if (addBreedName !== '' && addBreedTypeName !== '') {
+        addDogBreedType(addBreedName, addBreedTypeName);
+    }
+}
+
+function addDogBreed(addBreedName) {
+
     fetch(baseUrl + '/addDogBreed', postRequestJson({ breedName: addBreedName }))
         .then(response => {
             if (!response.ok) {
@@ -42,19 +55,52 @@ function addDogBreed() {
         })
         .then(data => {
             alert(data.message)
+            loadHomePage();
         })
         .catch(error => {
             alert('Error: ' + error)
         });
-    loadHomePage();
 }
 
-function removeDogBreed() {
-    const removeBreedName = document.getElementById('dog-breed-remove').value.trim().toLowerCase();
+function addDogBreedType(addTypeBreedName, addTypeBreedTypeName) {
+    fetch(baseUrl + '/addDogBreedType', postRequestJson({
+        breedName: addTypeBreedName,
+        breedTypeName: addTypeBreedTypeName
+    }))
+        .then(response => {
+            if (!response.ok) {
+                throw new Error('Network response was not ok');
+            }
+            return response.json(); // Parse the response JSON
+        })
+        .then(data => {
+            alert(data.message)
+            loadHomePage();
+        })
+        .catch(error => {
+            alert('Error: ' + error)
+        });
+}
+
+function removeHandle() {
+    const removeBreedName = document.getElementById('dog-breed-remove').value.trim().toLowerCase().replace(/\s+/g, " ");
+    const removeBreedTypeName = document.getElementById('dog-breedType-remove').value.trim().toLowerCase().replace(/\s+/g, " ");
+
     if (removeBreedName === '') {
-        alert('Please enter a breed name');
+        alert('Please enter a Breed name');
         return;
     }
+
+    if (removeBreedName !== '' && removeBreedTypeName === '') {
+        removeDogBreed(removeBreedName);
+    }
+
+    if (removeBreedName !== '' && removeBreedTypeName !== '') {
+        removeDogBreedType(removeBreedName, removeBreedTypeName);
+    }
+}
+
+function removeDogBreed(removeBreedName) {
     message = 'Are you sure you want to remove "' + removeBreedName + '" Breed?';
     if (!confirm(message)) {
         return;
@@ -68,47 +114,14 @@ function removeDogBreed() {
         })
         .then(data => {
             alert(data.message)
+            loadHomePage();
         })
         .catch(error => {
             alert('Error: ' + error)
         });
-
-    loadHomePage();
 }
 
-function addDogBreedType() {
-    const addTypeBreedName = document.getElementById('dog-breed-add-type').value.trim().toLowerCase();
-    const addTypeBreedTypeName = document.getElementById('dog-breedType-add').value.trim().toLowerCase();
-    if (addTypeBreedTypeName === '' || addTypeBreedName === '') {
-        alert('Please enter a breed name and a breed type name');
-        return;
-    }
-    fetch(baseUrl + '/addDogBreedType', postRequestJson({
-        breedName: addTypeBreedName,
-        breedTypeName: addTypeBreedTypeName
-    }))
-        .then(response => {
-            if (!response.ok) {
-                throw new Error('Network response was not ok');
-            }
-            return response.json(); // Parse the response JSON
-        })
-        .then(data => {
-            alert(data.message)
-        })
-        .catch(error => {
-            alert('Error: ' + error)
-        });
-    loadHomePage();
-}
-
-function removeDogBreedType() {
-    const removeTypeBreedName = document.getElementById('dog-breed-remove-type').value.trim().toLowerCase();
-    const removeTypeBreedTypeName = document.getElementById('dog-breedType-remove').value.trim().toLowerCase();
-    if (removeTypeBreedName === '' || removeTypeBreedTypeName === '') {
-        alert('Please enter a breed name and a breed type name');
-        return;
-    }
+function removeDogBreedType(removeTypeBreedName, removeTypeBreedTypeName) {
     message = 'Are you sure you want to remove "' + removeTypeBreedTypeName + '" from "' + removeTypeBreedName + '" Breed?';
     if (!confirm(message)) {
         return;
@@ -125,11 +138,92 @@ function removeDogBreedType() {
         })
         .then(data => {
             alert(data.message)
+            loadHomePage();
         })
         .catch(error => {
             alert('Error: ' + error)
         });
-    loadHomePage();
+}
+
+function updateHandle() {
+    const updateBreedName = document.getElementById('dog-breed-update').value.trim().toLowerCase().replace(/\s+/g, " ");
+    const newBreedName = document.getElementById('dog-breed-update-new').value.trim().toLowerCase().replace(/\s+/g, " ");
+
+    const updateBreedTypeName = document.getElementById('dog-breedType-update').value.trim().toLowerCase().replace(/\s+/g, " ");
+    const newBreedTypeName = document.getElementById('dog-breedType-update-new').value.trim().toLowerCase().replace(/\s+/g, " ");
+
+    if (updateBreedName === '') {
+        alert('Please enter a Breed name');
+        return;
+    }
+
+    else if (updateBreedName !== '' && newBreedName !== '' && updateBreedTypeName === '' && newBreedTypeName === '') {
+        updateBreedNameFunc(updateBreedName, newBreedName);
+    }
+
+    else if (updateBreedName !== '' && newBreedName === '' && updateBreedTypeName !== '' && newBreedTypeName !== '') {
+        updateBreedTypeNameFunc(updateBreedName, updateBreedTypeName, newBreedTypeName);
+    }
+
+    else if (updateBreedName !== '' && newBreedName !== '' && updateBreedTypeName !== '' && newBreedTypeName !== '') {
+        alert('All fields are filled, please enter a Breed name to update or a Breed Type name to update not both');
+        return;
+    }
+
+    else {
+        alert('Invalid input, please enter a Breed name to update or a Breed Type name to update.');
+        return;
+    }
+        
+}
+
+function updateBreedNameFunc(updateBreedName, newBreedName) {
+    message = 'Are you sure you want to update "' + updateBreedName + '" Breed to "' + newBreedName + '"?';
+    if (!confirm(message)) {
+        return;
+    }
+    fetch(baseUrl + '/updateDogBreedName', postRequestJson({ 
+        breedName: updateBreedName, 
+        newBreedName: newBreedName 
+    }))
+        .then(response => {
+            if (!response.ok) {
+                throw new Error('Network response was not ok');
+            }
+            return response.json(); // Parse the response JSON
+        })
+        .then(data => {
+            alert(data.message)
+            loadHomePage();
+        })
+        .catch(error => {
+            alert('Error: ' + error)
+        });
+}
+
+function updateBreedTypeNameFunc(updateBreedName, updateBreedTypeName, newBreedTypeName) {
+    message = 'Are you sure you want to update "' + updateBreedTypeName + '" to "' + newBreedTypeName + '" from "' + updateBreedName + '" Breed?';
+    if (!confirm(message)) {
+        return;
+    }
+    fetch(baseUrl + '/updateDogBreedTypeName', postRequestJson({
+        breedName: updateBreedName,
+        breedTypeName: updateBreedTypeName,
+        newBreedTypeName: newBreedTypeName
+    }))
+        .then(response => {
+            if (!response.ok) {
+                throw new Error('Network response was not ok');
+            }
+            return response.json(); // Parse the response JSON
+        })
+        .then(data => {
+            alert(data.message)
+            loadHomePage();
+        })
+        .catch(error => {
+            alert('Error: ' + error)
+        });
 }
 
 function loadHomePage() {

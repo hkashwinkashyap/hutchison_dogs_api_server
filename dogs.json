@@ -1,6 +1,5 @@
 {
   "affenpinscher" : [ ],
-  "african" : [ ],
   "airedale" : [ ],
   "akita" : [ ],
   "appenzeller" : [ ],
@@ -77,5 +76,6 @@
   "vizsla" : [ ],
   "weimaraner" : [ ],
   "whippet" : [ ],
-  "wolfhound" : [ "irish" ]
+  "wolfhound" : [ "irish" ],
+  "african" : [ ]
 }
