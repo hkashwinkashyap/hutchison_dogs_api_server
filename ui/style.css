@@ -4,7 +4,6 @@ body{
     text-align: center;
 }
 
-
 input[type="text"] {
     width: 200px;
     height: 35px;
@@ -35,4 +34,8 @@ nav {
     align-items: center;
     text-align: center;
     border-radius: 25px;
+}
+
+li {
+    font-size: small;
 }

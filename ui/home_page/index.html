@@ -10,47 +10,50 @@
     <title>Dogs</title>
 </head>
 
-<body>
-    <nav class="navbar bg-dark border-bottom border-body rounded-start-pill rounded-end-pill" data-bs-theme="dark">
-        <div class="container col-10">
-            <a class="navbar-brand" href="#">Kenine Club</a>
-        </div>
-        <div class="container col-1">
-            <button class="btn btn-outline-light" onclick="loadHomePage()">Reload</button>
-        </div>
-    </nav>
-
-    <div class="container text-center">
-        <div class="row">
-            <div class="col crud-view-container">
-                <h6>Add or Remove Dog Breed</h6>
-                    <div class="container button-container-btns">
-                        <input type="text" id="dog-breed-add">
-                        <button type="button" class="btn btn-outline-dark btn-sm" onclick="addDogBreed()">Add Breed</button>
-                    </div>
-                    <div class="container button-container-btns">
-                        <input type="text" id="dog-breed-remove">
-                        <button type="button" class="btn btn-outline-danger btn-sm" onclick="removeDogBreed()">Remove Breed</button>
-                    </div>
+<body style="background-color: rgb(50, 64, 72);">
+    <div class="sticky-top" style="background-color: rgb(50, 64, 72);">
+        <nav class="navbar bg-dark border-bottom border-body rounded-start-pill rounded-end-pill" data-bs-theme="dark">
+            <div class="container d-flex justify-content-between">
+                <a class="navbar-brand" href="javascript:loadHomePage();">Kenine Club</a>
+                <button class="btn btn-outline-light" onclick="loadHomePage()">Reload</button>
             </div>
-            <div class="col crud-view-container">
-                <h6>Add or Remove Dog Breed Type</h6>
+        </nav>
+
+        <div class="container text-center">
+            <div class="row">
+                <div class="col crud-view-container text-bg-dark">
+                    <h6 class="navbar-brand rounded-pill text-bg-dark">Add or Remove Dog Breed</h6>
                     <div class="container button-container-btns">
                         <input type="text" id="dog-breed-add">
-                        <button type="button" class="btn btn-outline-dark btn-sm" onclick="addDogBreedType()">Add Breed Type</button>
+                        <button type="button" class="btn btn-outline-light btn-sm" onclick="addDogBreed()">Add
+                            Breed</button>
                     </div>
                     <div class="container button-container-btns">
                         <input type="text" id="dog-breed-remove">
-                        <button type="button" class="btn btn-outline-danger btn-sm" onclick="removeDogBreedType()">Remove Breed
+                        <button type="button" class="btn btn-outline-danger btn-sm" onclick="removeDogBreed()">Remove
+                            Breed</button>
+                    </div>
+                </div>
+                <div class="col crud-view-container text-bg-dark">
+                    <h6 class="navbar-brand rounded-pill text-bg-dark">Add or Remove Dog Breed Type</h6>
+                    <div class="container button-container-btns">
+                        <input type="text" id="dog-breed-add">
+                        <button type="button" class="btn btn-outline-light btn-sm" onclick="addDogBreedType()">Add Breed
                             Type</button>
                     </div>
+                    <div class="container button-container-btns">
+                        <input type="text" id="dog-breed-remove">
+                        <button type="button" class="btn btn-outline-danger btn-sm"
+                            onclick="removeDogBreedType()">Remove Breed
+                            Type</button>
+                    </div>
+                </div>
             </div>
         </div>
     </div>
-
     <div class="container crud-view-container">
-        <h5><span class="navbar-brand badge rounded-pill text-bg-dark">List</span></h5>
-        <ul id="breed-list"></ul>
+        <h5><span class="navbar-brand badge rounded-pill text-bg-dark">List of the Dogs</span></h5>
+        <div id="dog-list" class="container" data-bs-theme="dark"></div>
     </div>
 
     <script src="../script.js"></script>
