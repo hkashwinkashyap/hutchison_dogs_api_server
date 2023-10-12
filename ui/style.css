@@ -39,3 +39,8 @@ nav {
 li {
     font-size: small;
 }
+
+.highlighted {
+    background-color: rgb(74, 74, 4);
+    font-weight: bold;
+}

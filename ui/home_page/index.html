@@ -11,7 +11,7 @@
 </head>
 
 <body style="background-color: rgb(50, 64, 72);">
-    <div class="sticky-top" style="background-color: rgb(50, 64, 72);">
+    <div class="sticky-top container" style="background-color: rgb(50, 64, 72);">
         <nav class="navbar bg-dark border-bottom border-body rounded-start-pill rounded-end-pill" data-bs-theme="dark">
             <div class="container d-flex justify-content-between">
                 <a class="navbar-brand" href="javascript:loadHomePage();">Kenine Club</a>
@@ -24,12 +24,12 @@
                 <div class="col crud-view-container text-bg-dark">
                     <h6 class="navbar-brand rounded-pill text-bg-dark">Add or Remove Dog Breed</h6>
                     <div class="container button-container-btns">
-                        <input type="text" id="dog-breed-add">
+                        <input type="text" id="dog-breed-add" placeholder="Dog Breed">
                         <button type="button" class="btn btn-outline-light btn-sm" onclick="addDogBreed()">Add
                             Breed</button>
                     </div>
                     <div class="container button-container-btns">
-                        <input type="text" id="dog-breed-remove">
+                        <input type="text" id="dog-breed-remove" placeholder="Dog Breed">
                         <button type="button" class="btn btn-outline-danger btn-sm" onclick="removeDogBreed()">Remove
                             Breed</button>
                     </div>
@@ -37,12 +37,14 @@
                 <div class="col crud-view-container text-bg-dark">
                     <h6 class="navbar-brand rounded-pill text-bg-dark">Add or Remove Dog Breed Type</h6>
                     <div class="container button-container-btns">
-                        <input type="text" id="dog-breed-add">
+                        <input type="text" id="dog-breed-add-type" placeholder="Dog Breed">
+                        <input type="text" id="dog-breedType-add" placeholder="Breed Type">
                         <button type="button" class="btn btn-outline-light btn-sm" onclick="addDogBreedType()">Add Breed
                             Type</button>
                     </div>
                     <div class="container button-container-btns">
-                        <input type="text" id="dog-breed-remove">
+                        <input type="text" id="dog-breed-remove-type" placeholder="Dog Breed">
+                        <input type="text" id="dog-breedType-remove" placeholder="Breed Type">
                         <button type="button" class="btn btn-outline-danger btn-sm"
                             onclick="removeDogBreedType()">Remove Breed
                             Type</button>
@@ -50,16 +52,16 @@
                 </div>
             </div>
         </div>
+        <div class="container crud-view-container rounded-pill text-bg-dark">
+            <h5>Following list has each Dog Breed in each card</h5>
+            <h6>Types of that Breed in a list.</h6>
+        </div>
     </div>
     <div class="container crud-view-container">
-        <h5><span class="navbar-brand badge rounded-pill text-bg-dark">List of the Dogs</span></h5>
         <div id="dog-list" class="container" data-bs-theme="dark"></div>
     </div>
 
     <script src="../script.js"></script>
 </body>
-
-<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet"
-    integrity="sha384-T3c6CoIi6uLrA9TneNEoa7RxnatzjcDSCmG1MXxSR1GAsXEV/Dwwykc2MPK8M2HN" crossorigin="anonymous">
 
 </html>
