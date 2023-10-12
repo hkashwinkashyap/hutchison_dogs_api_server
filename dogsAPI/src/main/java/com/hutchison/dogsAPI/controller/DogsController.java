@@ -64,6 +64,24 @@ public class DogsController {
         }
     }
 
+    @PostMapping(value = "/updateDogBreedName")
+    public ResponseResult<Void> updateDogBreedName(@RequestBody Map<String, String > requestBody) {
+        try {
+            return ResponseResult.<Void>builder().
+                    code(200)
+                    .message(dogsService.updateDogBreedName(
+                            requestBody.get("breedName"),
+                            requestBody.get("newBreedName")
+                    ))
+                    .build();
+        } catch (DogException e) {
+            return ResponseResult.<Void>builder()
+                    .code(400)
+                    .message(e.getMessage())
+                    .build();
+        }
+    }
+
     @PostMapping(value = "/addDogBreedType")
     public ResponseResult<Void> addDogBreedType(@RequestBody Map<String, String> requestBody) {
         try {
@@ -90,6 +108,25 @@ public class DogsController {
                     .message(dogsService.deleteDogBreedType(
                             requestBody.get("breedName"),
                             requestBody.get("breedTypeName")
+                    ))
+                    .build();
+        } catch (DogException e) {
+            return ResponseResult.<Void>builder()
+                    .code(400)
+                    .message(e.getMessage())
+                    .build();
+        }
+    }
+
+    @PostMapping(value = "/updateDogBreedTypeName")
+    public ResponseResult<Void> updateDogBreedTypeName(@RequestBody Map<String, String > requestBody) {
+        try {
+            return ResponseResult.<Void>builder().
+                    code(200)
+                    .message(dogsService.updateDogBreedTypeName(
+                            requestBody.get("breedName"),
+                            requestBody.get("breedTypeName"),
+                            requestBody.get("newBreedTypeName")
                     ))
                     .build();
         } catch (DogException e) {

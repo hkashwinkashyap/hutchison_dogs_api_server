@@ -5,11 +5,10 @@ import com.hutchison.dogsAPI.repo.DogsData;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 
+import static org.junit.Assert.assertFalse;
+import static org.junit.Assert.assertTrue;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
 public class RepoTests {
@@ -66,4 +65,88 @@ public class RepoTests {
 
         assertEquals(data, DogsData.getDogsData());
     }
+
+    @Test
+    public void testAddDogBreed_Success() {
+        String dogBreed = "Golden Retriever";
+        ArrayList<String> dogBreedTypes = new ArrayList<>(Arrays.asList("English Cream", "American"));
+
+        String result = DogsData.addDogBreed(dogBreed, dogBreedTypes);
+
+        assertEquals("success", result);
+    }
+
+    @Test
+    public void testAddDogBreed_AlreadyExists() {
+        String dogBreed = "Labrador";
+        ArrayList<String> dogBreedTypes = new ArrayList<>(Arrays.asList("Yellow", "Black"));
+        DogsData.addDogBreed(dogBreed, dogBreedTypes);
+
+        String result = DogsData.addDogBreed(dogBreed, dogBreedTypes);
+
+        assertEquals("Dog Breed already exists!", result);
+    }
+
+    @Test
+    public void testUpdateDogBreedName_Success() {
+        String dogBreed = "Old Breed Name";
+        String newDogBreed = "New Breed Name";
+        ArrayList<String> dogBreedTypes = new ArrayList<>(Arrays.asList("Type1", "Type2"));
+        DogsData.addDogBreed(dogBreed, dogBreedTypes);
+
+        String result = DogsData.updateDogBreedName(dogBreed, newDogBreed);
+
+        assertEquals("success", result);
+        assertFalse(DogsData.getDogsData().containsKey(dogBreed));
+        assertTrue(DogsData.getDogsData().containsKey(newDogBreed));
+    }
+
+    @Test
+    public void testUpdateDogBreedName_BreedNotExists() {
+        String dogBreed = "Nonexistent Breed";
+        String newDogBreed = "New Breed";
+
+        String result = DogsData.updateDogBreedName(dogBreed, newDogBreed);
+
+        assertEquals("Dog Breed doesn't exist to update.", result);
+    }
+
+    @Test
+    public void testUpdateDogBreedTypeName_Success() {
+        String dogBreed = "Labrador";
+        String dogBreedType = "Yellow";
+        String newDogBreedType = "Golden";
+        ArrayList<String> dogBreedTypes = new ArrayList<>(Arrays.asList("Yellow", "Black"));
+        DogsData.addDogBreed(dogBreed, dogBreedTypes);
+
+        String result = DogsData.updateDogBreedTypeName(dogBreed, dogBreedType, newDogBreedType);
+
+        assertEquals("success", result);
+        assertTrue(DogsData.getDogsData().get(dogBreed).contains(newDogBreedType));
+        assertFalse(DogsData.getDogsData().get(dogBreed).contains(dogBreedType));
+    }
+
+    @Test
+    public void testUpdateDogBreedTypeName_BreedNotExists() {
+        String dogBreed = "Nonexistent Breed";
+        String dogBreedType = "Type";
+        String newDogBreedType = "New Type";
+
+        String result = DogsData.updateDogBreedTypeName(dogBreed, dogBreedType, newDogBreedType);
+
+        assertEquals("Dog Breed doesn't exist. Please add that dog breed first.", result);
+    }
+
+    @Test
+    public void testUpdateDogBreedTypeName_TypeNotExists() {
+        String dogBreed = "Labrador";
+        String newDogBreedType = "Golden";
+        ArrayList<String> dogBreedTypes = new ArrayList<>(Arrays.asList("Yellow", "Black"));
+        DogsData.addDogBreed(dogBreed, dogBreedTypes);
+
+        String result = DogsData.updateDogBreedTypeName(dogBreed, "Nonexistent Type", newDogBreedType);
+
+        assertEquals("Breed Type doesn't exist to update.", result);
+    }
+
 }

@@ -31,12 +31,30 @@ public class DogsData {
         return "success";
     }
 
+    public static String addDogBreed(String dogBreed, ArrayList<String> dogBreedTypes) {
+        if (dogsData.containsKey(dogBreed)) {
+            return "Dog Breed already exists!";
+        }
+        dogsData.put(dogBreed, dogBreedTypes);
+        return "success";
+    }
+
     public static String removeDogBreed(String dogBreed) {
         if (dogsData.containsKey(dogBreed)) {
             dogsData.remove(dogBreed);
             return "success";
         }
         return "Dog Breed doesn't exist to remove.";
+    }
+
+    public static String updateDogBreedName(String dogBreed, String newDogBreed) {
+        if (dogsData.containsKey(dogBreed)) {
+            ArrayList<String> tempArrayList = dogsData.get(dogBreed);
+            dogsData.remove(dogBreed);
+            addDogBreed(newDogBreed, tempArrayList);
+            return "success";
+        }
+        return "Dog Breed doesn't exist to update.";
     }
 
     public static String addDogBreedType(String dogBreed, String dogBreedType) {
@@ -60,4 +78,17 @@ public class DogsData {
         }
         return "Breed type doesn't exist to remove.";
     }
+
+    public static String updateDogBreedTypeName(String dogBreed, String dogBreedType, String newDogBreedType) {
+        if (dogsData.containsKey(dogBreed)) {
+            if (!dogsData.get(dogBreed).contains(dogBreedType)) {
+                return "Breed Type doesn't exist to update.";
+            }
+            dogsData.get(dogBreed).remove(dogBreedType);
+            dogsData.get(dogBreed).add(newDogBreedType);
+            return "success";
+        }
+        return "Dog Breed doesn't exist. Please add that dog breed first.";
+    }
+
 }

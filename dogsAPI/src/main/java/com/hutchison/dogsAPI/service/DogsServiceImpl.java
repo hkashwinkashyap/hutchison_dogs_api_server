@@ -83,6 +83,16 @@ public class DogsServiceImpl implements DogsService {
     }
 
     @Override
+    public String updateDogBreedName(String breedName, String newBreedName) throws DogException {
+        String result = DogsData.updateDogBreedName(breedName, newBreedName);
+        if (result.equals("success")) {
+            saveData();
+            return "Dog Breed Name is updated.";
+        }
+        throw new DogException(result);
+    }
+
+    @Override
     public String addDogBreedType(String breedName, String breedTypeName) throws DogException {
         if (breedName == null || breedName.equals(" ") || breedTypeName == null || breedTypeName.equals(" ")) {
             throw new DogException("Seems like you have not entered anything in the input. Please try again with a valid input.");
@@ -101,6 +111,16 @@ public class DogsServiceImpl implements DogsService {
         if(result.equals("success")){
             saveData();
             return "Removed the Breed Type from the Dog records.";
+        }
+        throw new DogException(result);
+    }
+
+    @Override
+    public String updateDogBreedTypeName(String breedName, String breedTypeName, String newBreedTypeName) throws DogException {
+        String result = DogsData.updateDogBreedTypeName(breedName, breedTypeName, newBreedTypeName);
+        if (result.equals("success")) {
+            saveData();
+            return "Breed Type Name is updated.";
         }
         throw new DogException(result);
     }
