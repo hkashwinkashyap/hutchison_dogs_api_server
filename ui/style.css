@@ -1,3 +1,38 @@
 body{
     font-family: Arial, Helvetica, sans-serif;
+    align-items: center;
+    text-align: center;
+}
+
+
+input[type="text"] {
+    width: 200px;
+    height: 35px;
+    padding: 5px;
+    border-width: 1px;
+    border-radius: 25px;
+}
+
+nav {
+    margin: 20px;
+    padding: 5px;
+}
+
+.button-container {
+    margin: 20px;
+    padding: 5px;
+}
+
+.button-container-btns {
+    margin: 10px;
+    padding: 5px;
+}
+
+.crud-view-container {
+    margin: 20px;
+    border: 1px solid #2e2b2b;
+    padding: 10px;
+    align-items: center;
+    text-align: center;
+    border-radius: 25px;
 }
