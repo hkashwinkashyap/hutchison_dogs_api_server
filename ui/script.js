@@ -170,17 +170,13 @@ function updateHandle(updateBreedName, newBreedName, updateBreedTypeName, newBre
     }
 
     else {
-        alert('Invalid input, please enter a Breed name to update or a Breed Type name to update.');
+        alert('Invalid input. No update done');
         return;
     }
 
 }
 
 function updateBreedNameFunc(updateBreedName, newBreedName) {
-    message = 'Are you sure you want to update "' + updateBreedName + '" Breed to "' + newBreedName + '"?';
-    if (!confirm(message)) {
-        return;
-    }
     fetch(baseUrl + '/updateDogBreedName', postRequestJson({
         breedName: updateBreedName,
         newBreedName: newBreedName
@@ -201,10 +197,6 @@ function updateBreedNameFunc(updateBreedName, newBreedName) {
 }
 
 function updateBreedTypeNameFunc(updateBreedName, updateBreedTypeName, newBreedTypeName) {
-    message = 'Are you sure you want to update "' + updateBreedTypeName + '" to "' + newBreedTypeName + '" from "' + updateBreedName + '" Breed?';
-    if (!confirm(message)) {
-        return;
-    }
     fetch(baseUrl + '/updateDogBreedTypeName', postRequestJson({
         breedName: updateBreedName,
         breedTypeName: updateBreedTypeName,
@@ -272,14 +264,18 @@ function loadHomePage() {
 
                 const breedTitle = document.createElement("h5");
                 breedTitle.classList.add("card-title");
+                if (breed.length > 15) {
+                    breedTitle.textContent = capitalizeFirstLetter(breed.substring(0, 15)) + '...';
+                } else {
                 breedTitle.textContent = capitalizeFirstLetter(breed);
-
+                }
                 const addBreedTypeButton = document.createElement("button");
                 addBreedTypeButton.classList.add("btn", "btn-outline-info", "btn-sm", "card-title-button");
                 addBreedTypeButton.innerHTML = addIcon.outerHTML;
                 addBreedTypeButton.onclick = function () {
                     const newBreedTypeNameEntered = prompt("Enter the new breed type for " + breed).trim().toLowerCase().replace(/\s+/g, " ");
-                    if (newBreedTypeNameEntered === null) {
+                    if (newBreedTypeNameEntered === '') {
+                        alert('No update done');
                         return;
                     }
                     addDogBreedType(breed, newBreedTypeNameEntered);
@@ -296,8 +292,9 @@ function loadHomePage() {
                 updateBreedButton.classList.add("btn", "btn-outline-warning", "btn-sm", "card-title-button");
                 updateBreedButton.innerHTML = updateIcon.outerHTML;
                 updateBreedButton.onclick = function () {
-                    const newBreedNameEntered = prompt("Enter the new Breed name for " + breed);
-                    if (newBreedNameEntered === null) {
+                    const newBreedNameEntered = prompt('Update ' + breed + ' with:');
+                    if (newBreedNameEntered === '') {
+                        alert('Invalid input. No update done');
                         return;
                     }
                     updateHandle(breed, newBreedNameEntered, '', '');
@@ -335,8 +332,9 @@ function loadHomePage() {
                     updateButton.classList.add("btn", "btn-outline-warning", "btn-sm", "card-type-button");
                     updateButton.innerHTML = updateIcon.outerHTML;
                     updateButton.onclick = function () {
-                        const newBreedTypeNameEntered = prompt("Enter the new breed type name for " + subBreed);
-                        if (newBreedTypeNameEntered === null) {
+                        const newBreedTypeNameEntered = prompt('Update ' + subBreed + ' to:');
+                        if (newBreedTypeNameEntered === '') {
+                            alert('Invalid input. No update done');
                             return;
                         }
                         updateHandle(breed, '', subBreed, newBreedTypeNameEntered);
@@ -349,7 +347,11 @@ function loadHomePage() {
 
                     const typeContainer = document.createElement("div");
                     typeContainer.classList.add("d-flex", "justify-content-between");
+                    if (subBreed.length > 15) {
+                        typeContainer.appendChild(document.createTextNode(capitalizeFirstLetter(subBreed.substring(0, 15)) + '...'));
+                    } else {
                     typeContainer.appendChild(document.createTextNode(capitalizeFirstLetter(subBreed)));
+                    }
                     typeContainer.appendChild(buttonsSpan);
 
                     breedTypeItem.appendChild(typeContainer);
