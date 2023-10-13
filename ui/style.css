@@ -2,6 +2,7 @@ body{
     font-family: Arial, Helvetica, sans-serif;
     align-items: center;
     text-align: center;
+    color: aliceblue;
 }
 
 input[type="text"] {
@@ -13,8 +14,8 @@ input[type="text"] {
 }
 
 nav {
-    margin: 20px;
-    padding: 5px;
+    margin-top: 20px;
+    padding-top: 5px;
 }
 
 .button-container {
@@ -29,7 +30,6 @@ nav {
 
 .crud-view-container {
     margin: 20px;
-    border: 1px solid #2e2b2b;
     padding: 10px;
     align-items: center;
     text-align: center;
@@ -40,7 +40,29 @@ li {
     font-size: small;
 }
 
-.highlighted {
-    background-color: rgb(74, 74, 4);
-    font-weight: bold;
+.dd-menu-size {
+    width: 400px;
+}
+
+.card-type-button {
+    opacity: 0;
+    transition: opacity 0.2s;
+}
+
+.list-group-item:hover .card-type-button {
+    opacity: 1;
+}
+
+.card-title-button {
+    opacity: 0;
+    transition: opacity 0.2s;
+}
+
+.card:hover .card-title-button {
+    opacity: 1;
+}
+
+p {
+    font-size: medium;
+    padding: 5px;
 }

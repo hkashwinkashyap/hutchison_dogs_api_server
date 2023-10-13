@@ -37,10 +37,12 @@ function addHandle() {
 
     if (addBreedName !== '' && addBreedTypeName === '') {
         addDogBreed(addBreedName);
+        $('#addModal').modal('hide'); // Close the modal
     }
 
     if (addBreedName !== '' && addBreedTypeName !== '') {
         addDogBreedType(addBreedName, addBreedTypeName);
+        $('#addModal').modal('hide'); // Close the modal
     }
 }
 
@@ -82,9 +84,7 @@ function addDogBreedType(addTypeBreedName, addTypeBreedTypeName) {
         });
 }
 
-function removeHandle() {
-    const removeBreedName = document.getElementById('dog-breed-remove').value.trim().toLowerCase().replace(/\s+/g, " ");
-    const removeBreedTypeName = document.getElementById('dog-breedType-remove').value.trim().toLowerCase().replace(/\s+/g, " ");
+function removeHandle(removeBreedName, removeBreedTypeName) {
 
     if (removeBreedName === '') {
         alert('Please enter a Breed name');
@@ -145,12 +145,11 @@ function removeDogBreedType(removeTypeBreedName, removeTypeBreedTypeName) {
         });
 }
 
-function updateHandle() {
-    const updateBreedName = document.getElementById('dog-breed-update').value.trim().toLowerCase().replace(/\s+/g, " ");
-    const newBreedName = document.getElementById('dog-breed-update-new').value.trim().toLowerCase().replace(/\s+/g, " ");
-
-    const updateBreedTypeName = document.getElementById('dog-breedType-update').value.trim().toLowerCase().replace(/\s+/g, " ");
-    const newBreedTypeName = document.getElementById('dog-breedType-update-new').value.trim().toLowerCase().replace(/\s+/g, " ");
+function updateHandle(updateBreedName, newBreedName, updateBreedTypeName, newBreedTypeName) {
+    updateBreedName = updateBreedName.trim().toLowerCase().replace(/\s+/g, " ");
+    newBreedName = newBreedName.trim().toLowerCase().replace(/\s+/g, " ");
+    updateBreedTypeName = updateBreedTypeName.trim().toLowerCase().replace(/\s+/g, " ");
+    newBreedTypeName = newBreedTypeName.trim().toLowerCase().replace(/\s+/g, " ");
 
     if (updateBreedName === '') {
         alert('Please enter a Breed name');
@@ -174,7 +173,7 @@ function updateHandle() {
         alert('Invalid input, please enter a Breed name to update or a Breed Type name to update.');
         return;
     }
-        
+
 }
 
 function updateBreedNameFunc(updateBreedName, newBreedName) {
@@ -182,9 +181,9 @@ function updateBreedNameFunc(updateBreedName, newBreedName) {
     if (!confirm(message)) {
         return;
     }
-    fetch(baseUrl + '/updateDogBreedName', postRequestJson({ 
-        breedName: updateBreedName, 
-        newBreedName: newBreedName 
+    fetch(baseUrl + '/updateDogBreedName', postRequestJson({
+        breedName: updateBreedName,
+        newBreedName: newBreedName
     }))
         .then(response => {
             if (!response.ok) {
@@ -228,6 +227,14 @@ function updateBreedTypeNameFunc(updateBreedName, updateBreedTypeName, newBreedT
 
 function loadHomePage() {
     const dogList = document.getElementById('dog-list');
+    const updateIcon = document.createElement("i");
+    updateIcon.classList.add("bi", "bi-pencil");
+
+    const deleteIcon = document.createElement("i");
+    deleteIcon.classList.add("bi", "bi-trash3");
+
+    const addIcon = document.createElement("i");
+    addIcon.classList.add("bi", "bi-plus");
 
     dogList.innerHTML = '';
 
@@ -256,8 +263,7 @@ function loadHomePage() {
                 }
 
                 const breedCard = document.createElement("div");
-                breedCard.classList.add("card");
-                breedCard.classList.add("col");
+                breedCard.classList.add("card", "col");
                 row.appendChild(breedCard);
 
                 const breedCardContent = document.createElement("div");
@@ -266,24 +272,95 @@ function loadHomePage() {
 
                 const breedTitle = document.createElement("h5");
                 breedTitle.classList.add("card-title");
-                breedTitle.textContent = capitalizeFirstLetter(breed); // Capitalize the breed name
-                breedCardContent.appendChild(breedTitle);
+                breedTitle.textContent = capitalizeFirstLetter(breed);
+
+                const addBreedTypeButton = document.createElement("button");
+                addBreedTypeButton.classList.add("btn", "btn-outline-info", "btn-sm", "card-title-button");
+                addBreedTypeButton.innerHTML = addIcon.outerHTML;
+                addBreedTypeButton.onclick = function () {
+                    const newBreedTypeNameEntered = prompt("Enter the new breed type for " + breed).trim().toLowerCase().replace(/\s+/g, " ");
+                    if (newBreedTypeNameEntered === null) {
+                        return;
+                    }
+                    addDogBreedType(breed, newBreedTypeNameEntered);
+                };
+
+                const deleteBreedButton = document.createElement("button");
+                deleteBreedButton.classList.add("btn", "btn-outline-danger", "btn-sm", "card-title-button");
+                deleteBreedButton.innerHTML = deleteIcon.outerHTML;
+                deleteBreedButton.onclick = function () {
+                    removeHandle(breed, '');
+                };
+
+                const updateBreedButton = document.createElement("button");
+                updateBreedButton.classList.add("btn", "btn-outline-warning", "btn-sm", "card-title-button");
+                updateBreedButton.innerHTML = updateIcon.outerHTML;
+                updateBreedButton.onclick = function () {
+                    const newBreedNameEntered = prompt("Enter the new Breed name for " + breed);
+                    if (newBreedNameEntered === null) {
+                        return;
+                    }
+                    updateHandle(breed, newBreedNameEntered, '', '');
+                };
+
+                const buttonsBreedSpan = document.createElement("span");
+                buttonsBreedSpan.appendChild(addBreedTypeButton);
+                buttonsBreedSpan.appendChild(document.createTextNode("   "));
+                buttonsBreedSpan.appendChild(updateBreedButton);
+                buttonsBreedSpan.appendChild(document.createTextNode("   "));
+                buttonsBreedSpan.appendChild(deleteBreedButton);
+
+                const breedContainer = document.createElement("div");
+                breedContainer.classList.add("d-flex", "justify-content-between");
+                breedContainer.appendChild(breedTitle);
+                breedContainer.appendChild(buttonsBreedSpan);
+                breedCardContent.appendChild(breedContainer);
 
                 const breedTypeName = document.createElement("div");
                 breedTypeName.classList.add("list-group");
 
                 const breedTypeNames = lowercaseData[breed];
                 for (const subBreed of breedTypeNames) {
-                    const breedType = document.createElement("li");
-                    breedType.classList.add("list-group-item");
-                    breedType.textContent = capitalizeFirstLetter(subBreed); // Capitalize the breedType name
-                    breedTypeName.appendChild(breedType);
+                    const breedTypeItem = document.createElement("li");
+                    breedTypeItem.classList.add("list-group-item");
+
+                    const deleteButton = document.createElement("button");
+                    deleteButton.classList.add("btn", "btn-outline-danger", "btn-sm", "card-type-button");
+                    deleteButton.innerHTML = deleteIcon.outerHTML;
+                    deleteButton.onclick = function () {
+                        removeHandle(breed, subBreed);
+                    };
+
+                    const updateButton = document.createElement("button");
+                    updateButton.classList.add("btn", "btn-outline-warning", "btn-sm", "card-type-button");
+                    updateButton.innerHTML = updateIcon.outerHTML;
+                    updateButton.onclick = function () {
+                        const newBreedTypeNameEntered = prompt("Enter the new breed type name for " + subBreed);
+                        if (newBreedTypeNameEntered === null) {
+                            return;
+                        }
+                        updateHandle(breed, '', subBreed, newBreedTypeNameEntered);
+                    };
+
+                    const buttonsSpan = document.createElement("span");
+                    buttonsSpan.appendChild(updateButton);
+                    buttonsSpan.appendChild(document.createTextNode("   "));
+                    buttonsSpan.appendChild(deleteButton);
+
+                    const typeContainer = document.createElement("div");
+                    typeContainer.classList.add("d-flex", "justify-content-between");
+                    typeContainer.appendChild(document.createTextNode(capitalizeFirstLetter(subBreed)));
+                    typeContainer.appendChild(buttonsSpan);
+
+                    breedTypeItem.appendChild(typeContainer);
+                    breedTypeName.appendChild(breedTypeItem);
                 }
 
                 breedCardContent.appendChild(breedTypeName);
 
                 colCount++;
             }
+
         })
         .catch(error => {
             console.error('Error fetching data: ' + error);
