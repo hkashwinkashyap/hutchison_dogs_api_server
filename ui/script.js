@@ -1,4 +1,5 @@
-const baseUrl = 'http://localhost:8080/dogsApi';
+const baseUrl = 'http://ec2-51-20-65-141.eu-north-1.compute.amazonaws.com:8000/dogsApi';
+
 
 function postRequestJson(requestData) {
     return {
