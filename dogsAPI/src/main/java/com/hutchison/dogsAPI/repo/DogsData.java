@@ -49,6 +49,9 @@ public class DogsData {
 
     public static String updateDogBreedName(String dogBreed, String newDogBreed) {
         if (dogsData.containsKey(dogBreed)) {
+            if (dogsData.containsKey(newDogBreed)) {
+                return "Dog Breed already exists with that name.";
+            }
             ArrayList<String> tempArrayList = dogsData.get(dogBreed);
             dogsData.remove(dogBreed);
             addDogBreed(newDogBreed, tempArrayList);
