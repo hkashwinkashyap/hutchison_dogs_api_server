@@ -1,6 +1,5 @@
 const baseUrl = 'http://ec2-51-20-65-141.eu-north-1.compute.amazonaws.com:8000/dogsApi';
 
-
 function postRequestJson(requestData) {
     return {
         method: 'POST',
@@ -25,6 +24,46 @@ function setColCount() {
     else {
         return 2;
     }
+}
+
+function downloadHandle() {
+    fetch(baseUrl + '/getAllDogs')
+        .then((response) => {
+            if (!response.ok) {
+                throw new Error('Network response was not ok');
+            }
+            return response.json();
+        })
+        .then((jsonData) => {
+            let lowercaseData = {};
+            for (const breed in jsonData.data) {
+                const lowerBreed = breed.toLowerCase();
+                const lowerSubBreeds = jsonData.data[breed].map((subBreed) => subBreed.toLowerCase());
+                lowercaseData[lowerBreed] = lowerSubBreeds.sort();
+            }
+
+            const sortedKeys = Object.keys(lowercaseData).sort();
+
+            const sortedLowercaseData = {};
+            for (const key of sortedKeys) {
+                sortedLowercaseData[key] = lowercaseData[key];
+            }
+
+            const jsonContent = JSON.stringify(sortedLowercaseData, null, 2)
+            const blob = new Blob([jsonContent], { type: 'application/json' });
+            const url = URL.createObjectURL(blob);
+            const a = document.createElement('a');
+            a.href = url;
+            a.download = 'dogs.json';
+            a.style.display = 'none';
+            document.body.appendChild(a);
+            a.click();
+            document.body.removeChild(a);
+            URL.revokeObjectURL(url);
+        })
+        .catch((error) => {
+            console.error('Error fetching data: ' + error);
+        });
 }
 
 function addHandle() {
@@ -268,7 +307,7 @@ function loadHomePage() {
                 if (breed.length > 15) {
                     breedTitle.textContent = capitalizeFirstLetter(breed.substring(0, 15)) + '...';
                 } else {
-                breedTitle.textContent = capitalizeFirstLetter(breed);
+                    breedTitle.textContent = capitalizeFirstLetter(breed);
                 }
                 const addBreedTypeButton = document.createElement("button");
                 addBreedTypeButton.classList.add("btn", "btn-outline-info", "btn-sm", "card-title-button");
@@ -317,7 +356,7 @@ function loadHomePage() {
                 const breedTypeName = document.createElement("div");
                 breedTypeName.classList.add("list-group");
 
-                const breedTypeNames = lowercaseData[breed];
+                const breedTypeNames = lowercaseData[breed].sort();
                 for (const subBreed of breedTypeNames) {
                     const breedTypeItem = document.createElement("li");
                     breedTypeItem.classList.add("list-group-item");
@@ -351,7 +390,7 @@ function loadHomePage() {
                     if (subBreed.length > 15) {
                         typeContainer.appendChild(document.createTextNode(capitalizeFirstLetter(subBreed.substring(0, 15)) + '...'));
                     } else {
-                    typeContainer.appendChild(document.createTextNode(capitalizeFirstLetter(subBreed)));
+                        typeContainer.appendChild(document.createTextNode(capitalizeFirstLetter(subBreed)));
                     }
                     typeContainer.appendChild(buttonsSpan);
 

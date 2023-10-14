@@ -81,6 +81,9 @@ public class DogsData {
 
     public static String updateDogBreedTypeName(String dogBreed, String dogBreedType, String newDogBreedType) {
         if (dogsData.containsKey(dogBreed)) {
+            if (dogsData.get(dogBreed).contains(newDogBreedType)) {
+                return "Breed Type already exists with that name.";
+            }
             if (!dogsData.get(dogBreed).contains(dogBreedType)) {
                 return "Breed Type doesn't exist to update.";
             }
