@@ -13,7 +13,7 @@ INTERACT:
 
     The interaction is simple and intuitive.
 
-RUN:
+BUILD and RUN:
     To run the application manually,    pull the repo
                                         navigate into ui directory on local terminal:
                                             run the command "python -m http.server 8080" or with python3
@@ -28,7 +28,7 @@ NOTE:
     While trying to run on local machine, please open the "script.js" file and change the baseUrl to 
     "http://localhost:8000/dogsApi" as the server will be running locally on that port.
 
-DEPLOY SCRITP:
+DEPLOY SCRIPT:
     1. Downloaded .pem file into your directory
 
     2. Run "chmod 700 <.pem file name>" to retrict the permissions for the .pem file
