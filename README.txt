@@ -28,6 +28,29 @@ NOTE:
     While trying to run on local machine, please open the "script.js" file and change the baseUrl to 
     "http://localhost:8000/dogsApi" as the server will be running locally on that port.
 
+DEPLOY SCRITP:
+    1. Downloaded .pem file into your directory
+
+    2. Run "chmod 700 <.pem file name>" to retrict the permissions for the .pem file
+
+    3. Launch the EC2 instance on AWS console.
+
+    4. To connect to the instance visa SSH,
+        ssh -i "hutchison_challenge.pem" ec2-user@ec2-13-48-30-73.eu-north-1.compute.amazonaws.com
+
+    4. To install java environment on the instance,
+        sudo yum install java-21
+
+    6. To send the jar file to the instance via SSH,
+        scp -i hutchison_challenge.pem dogsAPI-0.0.1-SNAPSHOT.jar ec2-user@ec2-13-48-30-73.eu-north-1.compute.amazonaws.com:~
+
+    7. To send the json file to the instance via SSH,
+        scp -i hutchison_challenge.pem dogs.json ec2-user@ec2-13-48-30-73.eu-north-1.compute.amazonaws.com:~
+
+    8. To run the server application on the instance,
+        nohup java -jar dogsAPI-0.0.1-SNAPSHOT.jar > output.log &
+
+    9. Server is deployed at baseUrl = "http://ec2-51-20-65-141.eu-north-1.compute.amazonaws.com:8000/dogsApi"
 
 The tree structure of the submitted directory is as follows:
     ├── README.md
