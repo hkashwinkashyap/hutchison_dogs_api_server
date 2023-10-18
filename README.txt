@@ -35,7 +35,7 @@ DEPLOY SCRIPT:
 
     3. Launch the EC2 instance on AWS console.
 
-    4. To connect to the instance visa SSH,
+    4. To connect to the instance via SSH,
         ssh -i "hutchison_challenge.pem" ec2-user@ec2-13-48-30-73.eu-north-1.compute.amazonaws.com
 
     4. To install java environment on the instance,
